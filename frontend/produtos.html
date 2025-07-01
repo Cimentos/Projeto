@@ -4,19 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Meus Produtos</title>
+    
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+           background-image: url("imagens/U'SOUND.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: sans-serif;
+        }
+
+        #cadastro-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* preencher toda a altura da tela */
+            padding: 20px;
+            text-align: center;
+        }
+
+        #produtoForm input, #produtoForm button {
+            display: block;
+            margin: 10px auto;
+        }
+
+    </style>
+
 </head>
 <body>
-    <h2>Gerenciar Produtos</h2>
+    <div id="cadastro-page">
+        <h2>Gerenciar Produtos</h2>
 
-    <form id="produtoForm">
-        <input type="text" id="nome" placeholder="Nome do produto" required>
-        <input type="number" id="preco" placeholder="Preço" required>
-        <input type="number" id="estoque" placeholder="Quantidade em estoque" required>
-        <button type="submit">Cadastrar</button>
-    </form>
+        <form id="produtoForm">
+            <input type="text" id="nome" placeholder="Nome do produto" required>
+            <input type="number" id="preco" placeholder="Preço" required>
+            <input type="number" id="estoque" placeholder="Quantidade em estoque" required>
+            <button type="submit">Cadastrar</button>
+        </form>
 
-    <h3>Meus Produtos</h3>
-    <ul id="listaProdutos"></ul>
+        <h3>Produtos</h3>
+        <ul id="listaProdutos"></ul>
+    </div>
 
     <script>
         const userId = localStorage.getItem('user_id');

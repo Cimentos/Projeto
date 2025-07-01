@@ -1,16 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Login</title>
+      
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+           background-image: url("imagens/U'SOUND.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: sans-serif;
+        }
+
+        #cadastro-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 2 0px;
+            text-align: center;
+        }
+
+        #loginForm input, #loginForm button {
+            display: block;
+            margin: 40px auto;
+        }
+
+        .titulo {
+            font-family: "Abril Fatface", serif;
+            font-weight: 1000;
+            font-size: 50px;
+            color: #222222;
+            font-style: normal;
+        }
+
+    </style>
+
 </head>
 <body>
-    <h2>Login</h2>
-    <form id="loginForm">
-        <input type="text" id="username" placeholder="Usuário" required>
-        <input type="password" id="password" placeholder="Senha" required>
-        <button type="submit">Entrar</button>
-    </form>
+    <div id="cadastro-page">
+        <h2 class="titulo">Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Usuário" required>
+            <input type="password" id="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
