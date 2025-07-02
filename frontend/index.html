@@ -1,40 +1,198 @@
-<!-- frontend/index.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Bem-vindo</title>
-    <link rel="stylesheet" href="css/style.css">
-       
-       <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <title>Bem-vindo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
 
-        body {
-            background-image: url("imagens/U'SOUND.jpg");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            font-family: sans-serif;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        #cadastro-page {
-            /* Remove o background daqui */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100%;
-            padding: 20px;
-        }
-    </style>
+    html, body {
+      height: 100%;
+      font-family: sans-serif;
+      background-image: url("imagens/U'SOUND.jpg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
+    .container {
+      background-color: #121212;
+      width: 400px;
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+
+    .titulo {
+      font-family: 'Abril Fatface', cursive;
+      color: white;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    .btn-social {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: 1px solid #fff;
+      border-radius: 30px;
+      background-color: transparent;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-social:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .divider {
+      margin: 30px 0;
+      height: 1px;
+      background-color: #333;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      color: white;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #333;
+      border-radius: 4px;
+      background-color: #1c1c1c;
+      color: white;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background-color: #1DB954;
+      color: black;
+      font-weight: bold;
+      padding: 12px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #1ed760;
+    }
+
+    .signup {
+      margin-top: 20px;
+      color: #b3b3b3;
+      font-size: 14px;
+    }
+
+    .signup a {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .btn-social img {
+      height: 18px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Bem-vindo à aplicação Django</h1>
-    <a href="cadastro.html">Cadastrar</a> | <a href="login.html">Login</a>
+  <div class="container">
+    <h1 class="titulo">Entrar no U'SOUND</h1>
+
+    <button class="btn-social">
+      <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google">
+      Continuar com o Google
+    </button>
+
+    <button class="btn-social">
+      <img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook">
+      Continuar com o Facebook
+    </button>
+
+    <button class="btn-social">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/mac-os.png" alt="Apple">
+      Continuar com a Apple
+    </button>
+
+    <button class="btn-social">
+      📱 Continuar com um número de telefone
+    </button>
+
+    <div class="divider"></div>
+
+    <!-- Formulário de login -->
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">E-mail ou nome de usuário</label>
+        <input type="text" id="username" name="username" placeholder="E-mail ou nome de usuário" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+      </div>
+
+      <button type="submit" class="btn-primary">Continuar</button>
+    </form>
+
+    <div class="signup">
+      Não tem uma conta? <a href="cadastro.html">Inscrever-se no U'SOUND</a>
+    </div>
+  </div>
+
+  <!-- JavaScript de login -->
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/login/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem('user_id', data.user_id);
+          alert('Login realizado com sucesso!');
+          window.location.href = "produtos.html";
+        } else {
+          alert('Credenciais inválidas. Verifique e tente novamente.');
+        }
+      } catch (error) {
+        alert('Erro na conexão com o servidor.');
+        console.error(error);
+      }
+    });
+  </script>
 </body>
 </html>

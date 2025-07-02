@@ -6,78 +6,92 @@
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
     <meta charset="UTF-8">  
     <title>Cadastro</title>
+
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+    background-image: url("imagens/U'SOUND.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Abril Fatface', cursive;
+    margin: 0;       
+    height: 100vh; 
+    color: rgb(0, 0, 0);
+}
 
-        body {
-            background-image: url("imagens/U'SOUND.jpg");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            font-family: sans-serif;
-        }
+h2 {
+    font-size: 60px; /* Muda o tamanho do "Seu cadastro" */
+    color: rgb(0, 0, 0);
+    -webkit-text-stroke: 1px black;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    font-family: 'Abril Fatface', cursive;
+    text-align: center;
+}
 
-        #cadastro-page {
-            /* Remove o background daqui */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100%;
-            padding: 20px;
-         }
+#cadastro-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    padding: 0px;
+}
 
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 300px;
-        }
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 300px;
+}
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            padding: 13px;
-            border: none;
-            border-radius: 100px;
-            background-color: rgba(255, 255, 255, 0.85);
-            font-size: 16px;
-            outline: none;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease;
-        }
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 13px;
+    border: none;
+    border-radius: 100px;
+    background-color: rgba(0, 0, 0, 0.85);
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0 2px 5px rgb(255, 255, 255);
+    transition: box-shadow 0.3s ease;
+    font-family: 'Abril Fatface', cursive;
+    color: rgb(255, 255, 255);
+}
 
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
-        }
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    box-shadow: 0 0 8px rgb(255, 255, 255);
+}
 
-        button {
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            background-color: #000000;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+input::placeholder {
+    color: rgb(200, 200, 200);
+}
 
-        button:hover {
-            background-color: #0056b3;
-        }
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Abril Fatface', cursive;
+    margin: 0;       
+    height: 6vh; 
+}
 
+button:hover {
+    background-color: #222222;
+}
     </style>
 
 </head>
 <body>
     <div id="cadastro-page">
-        <h2>Cadastro de Usuário</h2>
+        <h2 class="titulo">Cadastro de Usuário</h2>
         <form id="cadastroForm">
             <input type="text" id="username" placeholder="Usuário" required>
             <input type="email" id="email" placeholder="Email" required>

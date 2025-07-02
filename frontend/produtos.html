@@ -1,23 +1,73 @@
-<!-- frontend/produtos.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Meus Produtos</title>
-    
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
 
+    <style>
         body {
-           background-image: url("imagens/U'SOUND.jpg");
+            background-image: url("imagens/U'SOUND.jpg");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            font-family: sans-serif;
+            font-family: 'Abril Fatface', cursive;
+            margin: 0;
+            height: 100vh;
+            color: rgb(0, 0, 0);
+        }
+
+        /* Barra superior estilo Spotify */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            background-color: #121212;
+            padding: 10px 20px;
+            gap: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .top-bar .icon {
+            width: 30px;
+            height: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .spotify-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .search-bar {
+            flex: 1;
+            padding: 10px 15px;
+            background-color: #2a2a2a;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .search-bar::placeholder {
+            color: #aaa;
+        }
+
+        h2 {
+            font-size: 100px;
+            color: rgb(0, 0, 0);
+            -webkit-text-stroke: 1px black;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+            font-family: 'Abril Fatface', cursive;
+            text-align: center;
         }
 
         #cadastro-page {
@@ -25,89 +75,71 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%; /* preencher toda a altura da tela */
-            padding: 20px;
-            text-align: center;
+            min-height: 100%;
+            padding: 0px;
+            margin-top: 80px; /* Espaço para a barra fixa */
         }
 
-        #produtoForm input, #produtoForm button {
-            display: block;
-            margin: 10px auto;
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 300px;
         }
 
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            padding: 13px;
+            border: none;
+            border-radius: 100px;
+            background-color: rgba(0, 0, 0, 0.85);
+            font-size: 16px;
+            outline: none;
+            box-shadow: 0 2px 5px rgb(255, 255, 255);
+            transition: box-shadow 0.3s ease;
+            font-family: 'Abril Fatface', cursive;
+            color: rgb(255, 255, 255);
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            box-shadow: 0 0 8px rgb(255, 255, 255);
+        }
+
+        input::placeholder {
+            color: rgb(200, 200, 200);
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: #000000;
+            color: rgb(255, 255, 255);
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Abril Fatface', cursive;
+            margin: 0;
+            height: 6vh;
+        }
+
+        button:hover {
+            background-color: #222222;
+        }
     </style>
-
 </head>
 <body>
-    <div id="cadastro-page">
-        <h2>Gerenciar Produtos</h2>
-
-        <form id="produtoForm">
-            <input type="text" id="nome" placeholder="Nome do produto" required>
-            <input type="number" id="preco" placeholder="Preço" required>
-            <input type="number" id="estoque" placeholder="Quantidade em estoque" required>
-            <button type="submit">Cadastrar</button>
-        </form>
-
-        <h3>Produtos</h3>
-        <ul id="listaProdutos"></ul>
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <img src="imagens/icon.png" alt="Spotify" class="icon spotify-icon">
+        <div class="icon home-icon">&#8962;</div>
+        <input type="text" class="search-bar" placeholder="O que você quer ouvir?">
     </div>
-
-    <script>
-        const userId = localStorage.getItem('user_id');
-
-        if (!userId) {
-            alert('Você precisa estar logado');
-            window.location.href = 'login.html';
-        }
-
-        async function listarProdutos() {
-            const res = await fetch('http://127.0.0.1:8000/api/produtos/');
-            const produtos = await res.json();
-            const lista = document.getElementById('listaProdutos');
-            lista.innerHTML = '';
-
-            produtos.forEach(produto => {
-                const li = document.createElement('li');
-                li.textContent = `${produto.nome} - R$ ${produto.preco} - ${produto.estoque} un`;
-
-                const btnDel = document.createElement('button');
-                btnDel.textContent = 'Excluir';
-                btnDel.onclick = () => deletarProduto(produto.id);
-
-                li.appendChild(btnDel);
-                lista.appendChild(li);
-            });
-        }
-
-        async function cadastrarProduto(e) {
-            e.preventDefault();
-
-            const nome = document.getElementById('nome').value;
-            const preco = document.getElementById('preco').value;
-            const estoque = document.getElementById('estoque').value;
-
-            await fetch('http://127.0.0.1:8000/api/produtos/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ nome, preco, estoque })
-            });
-
-            document.getElementById('produtoForm').reset();
-            listarProdutos();
-        }
-
-        async function deletarProduto(id) {
-            await fetch(`http://127.0.0.1:8000/api/produtos/${id}/`, {
-                method: 'DELETE'
-            });
-            listarProdutos();
-        }
-
-        document.getElementById('produtoForm').addEventListener('submit', cadastrarProduto);
-        listarProdutos();
-    </script>
+    <div id="cadastro-page">
+        <h2 class="titulo">Início</h2>
+    </div>
 </body>
 </html>
