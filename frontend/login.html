@@ -8,14 +8,14 @@
     <title>Login</title>
       
     <style>
-        html, body {
+           html, body {
             height: 100%;
             margin: 0;
             padding: 0;
         }
 
         body {
-           background-image: url("imagens/U'SOUND.jpg");
+            background-image: url("imagens/U'SOUND.jpg");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -27,22 +27,49 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%;
-            padding: 2 0px;
-            text-align: center;
+            min-height: 100%;
+            padding: 20px;
+         }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 300px;
         }
 
-        #loginForm input, #loginForm button {
-            display: block;
-            margin: 40px auto;
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            padding: 13px;
+            border: none;
+            border-radius: 100px;
+            background-color: rgba(255, 255, 255, 0.85);
+            font-size: 16px;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
         }
 
-        .titulo {
-            font-family: "Abril Fatface", serif;
-            font-weight: 1000;
-            font-size: 50px;
-            color: #222222;
-            font-style: normal;
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: #000000;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
         }
 
     </style>
