@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Meus Produtos</title>
-
+    <meta charset="UTF-8" />
+    <title>U'SOUND - Início</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
             background-image: url("imagens/U'SOUND.jpg");
@@ -12,11 +12,13 @@
             background-repeat: no-repeat;
             font-family: 'Abril Fatface', cursive;
             margin: 0;
-            height: 100vh;
-            color: rgb(0, 0, 0);
+            min-height: 100vh;
+            color: rgb(255, 255, 255);
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Barra superior estilo Spotify */
+        /* Barra superior */
         .top-bar {
             display: flex;
             align-items: center;
@@ -30,61 +32,201 @@
             z-index: 1000;
         }
 
-        .top-bar .icon {
-            width: 30px;
-            height: 30px;
+        .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spotify-icon {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            filter: brightness(1.1);
+            background: transparent;
+        }
+
+        .home-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #2a2a2a;
+            border-radius: 50%;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 20px;
             cursor: pointer;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+            text-decoration: none;
         }
 
-        .spotify-icon {
-            width: 30px;
-            height: 30px;
+        .home-icon:hover {
+            background-color: #3a3a3a;
         }
 
-        .search-bar {
-            flex: 1;
-            padding: 10px 15px;
-            background-color: #2a2a2a;
-            border: none;
-            border-radius: 20px;
-            color: white;
-            font-size: 14px;
-            font-family: 'Arial', sans-serif;
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
         }
+
+         .search-bar {
+            text-align: right;
+
+       }
 
         .search-bar::placeholder {
             color: #aaa;
         }
 
-        h2 {
-            font-size: 100px;
-            color: rgb(0, 0, 0);
-            -webkit-text-stroke: 1px black;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
-            font-family: 'Abril Fatface', cursive;
-            text-align: center;
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 16px;
+            pointer-events: none;
         }
 
-        #cadastro-page {
+        /* Container geral */
+        .container {
+            display: flex;
+            flex: 1;
+            margin-top: 60px;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: rgba(0,0,0,0.85);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            height: calc(100vh - 60px);
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .add-button {
+            background-color: #1DB954;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 6px 12px;
+            background-color: #181818;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .tab.active, .tab:hover {
+            background-color: #1DB954;
+        }
+
+        .playlist {
+            background-color: #181818;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .playlist:hover {
+            background-color: #282828;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #f44336;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: rgba(18, 18, 18, 0.9);
+            border-radius: 12px;
+            margin: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100%;
-            padding: 0px;
-            margin-top: 80px; /* Espaço para a barra fixa */
         }
 
+        h2 {
+            font-size: 40px;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 5px black;
+            margin-bottom: 20px;
+        }
+
+        #music-list {
+            width: 100%;
+        }
+
+        #music-list div {
+            padding: 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #444;
+        }
+
+        #music-list div:hover {
+            background-color: #333;
+        }
+
+        audio#audio-player {
+            margin-top: 15px;
+            width: 100%;
+            border-radius: 8px;
+            background-color: #222;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        /* Formulário (da segunda página) */
         form {
             display: flex;
             flex-direction: column;
             gap: 15px;
             width: 300px;
+            margin-top: 30px;
         }
 
         input[type="text"],
@@ -97,9 +239,8 @@
             font-size: 16px;
             outline: none;
             box-shadow: 0 2px 5px rgb(255, 255, 255);
-            transition: box-shadow 0.3s ease;
             font-family: 'Abril Fatface', cursive;
-            color: rgb(255, 255, 255);
+            color: white;
         }
 
         input[type="text"]:focus,
@@ -108,38 +249,147 @@
             box-shadow: 0 0 8px rgb(255, 255, 255);
         }
 
-        input::placeholder {
-            color: rgb(200, 200, 200);
-        }
-
         button {
             padding: 12px;
             border: none;
             border-radius: 10px;
-            background-color: #000000;
-            color: rgb(255, 255, 255);
+            background-color: #000;
+            color: white;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
             font-family: 'Abril Fatface', cursive;
-            margin: 0;
             height: 6vh;
         }
 
         button:hover {
-            background-color: #222222;
+            background-color: #222;
         }
     </style>
 </head>
 <body>
     <!-- Barra superior -->
     <div class="top-bar">
-        <img src="imagens/icon.png" alt="Spotify" class="icon spotify-icon">
-        <div class="icon home-icon">&#8962;</div>
-        <input type="text" class="search-bar" placeholder="O que você quer ouvir?">
+        <img src="imagens/icon-removebg-preview.png" alt="Logo U'Sound" class="icon spotify-icon">
+        <a href="index.html" class="home-icon" title="Início"><i class="fas fa-house"></i></a>
+        <div class="search-container">
+            <i class="fas fa-magnifying-glass search-icon"></i>
+            <input type="text" class="search-bar" placeholder="O que você quer ouvir?">
+        </div>
     </div>
-    <div id="cadastro-page">
-        <h2 class="titulo">Início</h2>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                Biblioteca
+                <button class="add-button" title="Criar Playlist">+</button>
+            </div>
+            <div class="tabs">
+                <div class="tab active">Todas</div>
+                <div class="tab">Favoritas</div>
+                <div class="tab">Mateus</div>
+            </div>
+            <div id="playlistContainer"></div>
+        </div>
+
+        <!-- Main content -->
+        <main>
+            <h2>Suas Playlists</h2>
+            <div id="music-list">
+                <p>Selecione uma playlist para ver as músicas.</p>
+            </div>
+            <audio id="audio-player" controls></audio>
+        </main>
     </div>
+
+    <footer>
+        © 2025 U'SOUND. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        let playlistsData = {
+            "Ryan": [
+                { titulo: "Oceano - Djavan", arquivo: "músicas/OCEANO_-_Djavan.mp3" },
+                { titulo: "Um amor puro - Djavan", arquivo: "músicas/Um_amor_puro_-_Djavan.mp3" },
+                { titulo: "Samurai - Djavan", arquivo: "músicas/Djavan_-_Samurai_Ao_Vivo.mp3" },
+                { titulo: "Será que é amor - Arlindo Cruz", arquivo: "músicas/Arlindo_Cruz_-_Será_que_é_Amor.mp3" },
+                { titulo: "Melhor que ontem - Djonga", arquivo: "músicas/06_DJONGA_MELHOR_QUE_ONTEMMP3_160Kmp3.mp3" },
+                { titulo: "Amor hospitalar - Roberto Carlos", arquivo: "músicas/Amor_hospitalar.mp3" },
+
+            ],
+            "Mateus": [
+                { titulo: "O Sol - Vitor Kley", arquivo: "músicas/O_Sol.mp3" },
+                { titulo: "Dois Corações - Melim", arquivo: "músicas/Melim_-_Dois_Coracoes.mp3" },
+                { titulo: "Meu Abrigo - Melim", arquivo: "músicas/Meu_Abrigo_Versao_Oficial.mp3" },
+                { titulo: "Raridade - Anderson Freire", arquivo: "músicas/Raridade.mp3" },
+                { titulo: "Medo - Ninja Raps", arquivo: "músicas/medoviloes.mp3" },
+                { titulo: "Créu - Ninja Raps", arquivo: "músicas/Creu_Lucifer.mp3" },
+            ]
+        };
+
+        const playlistContainer = document.getElementById('playlistContainer');
+        const musicList = document.getElementById('music-list');
+        const audioPlayer = document.getElementById('audio-player');
+        const addButton = document.querySelector('.add-button');
+
+        function renderPlaylists() {
+            playlistContainer.innerHTML = '';
+            Object.keys(playlistsData).forEach(nome => {
+                const div = document.createElement('div');
+                div.classList.add('playlist');
+                div.textContent = nome;
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.textContent = '×';
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if(confirm(`Deseja deletar a playlist "${nome}"?`)) {
+                        delete playlistsData[nome];
+                        renderPlaylists();
+                        musicList.innerHTML = '<p>Selecione uma playlist para ver as músicas.</p>';
+                        audioPlayer.src = "";
+                    }
+                });
+                div.appendChild(deleteBtn);
+                div.addEventListener('click', () => carregarMusicas(nome));
+                playlistContainer.appendChild(div);
+            });
+        }
+
+        function carregarMusicas(nomePlaylist) {
+            const musicas = playlistsData[nomePlaylist];
+            musicList.innerHTML = `<h3>${nomePlaylist}</h3>`;
+            if(!musicas || musicas.length === 0) {
+                musicList.innerHTML += '<p>Nenhuma música nessa playlist.</p>';
+                audioPlayer.src = "";
+                return;
+            }
+            musicas.forEach(musica => {
+                const div = document.createElement('div');
+                div.textContent = musica.titulo;
+                div.addEventListener('click', () => {
+                    audioPlayer.src = musica.arquivo;
+                    audioPlayer.play();
+                });
+                musicList.appendChild(div);
+            });
+            audioPlayer.src = "";
+        }
+
+        addButton.addEventListener('click', () => {
+            const nome = prompt("Digite o nome da nova playlist:");
+            if(nome) {
+                if(playlistsData[nome]) {
+                    alert("Já existe uma playlist com esse nome!");
+                    return;
+                }
+                playlistsData[nome] = [];
+                renderPlaylists();
+            }
+        });
+
+        renderPlaylists();
+    </script>
 </body>
 </html>
