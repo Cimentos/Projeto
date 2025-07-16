@@ -1,0 +1,489 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>U'SOUND - Início</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            background-image: url("{% static 'imagens/u_sound.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: 'Abril Fatface', cursive;
+            margin: 0;
+            min-height: 100vh;
+            color: rgb(255, 255, 255);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Barra superior */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            background-color: #121212;
+            padding: 10px 20px;
+            gap: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spotify-icon {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            filter: brightness(1.1);
+            background: transparent;
+        }
+
+        .home-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #2a2a2a;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+            text-decoration: none;
+        }
+
+        .home-icon:hover {
+            background-color: #3a3a3a;
+        }
+
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+         .search-bar {
+            text-align: right;
+
+       }
+
+        .search-bar::placeholder {
+            color: #aaa;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        /* Container geral */
+        .container {
+            display: flex;
+            flex: 1;
+            margin-top: 60px;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: rgba(0,0,0,0.85);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            height: calc(100vh - 60px);
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .add-button {
+            background-color: #1DB954;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 12px;
+            background-color: #181818;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 8px; /* Adicionado para espaçamento */
+        }
+
+        .tab.active, .tab:hover {
+            background-color: #1DB954;
+        }
+
+        .playlist {
+            background-color: #181818;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .playlist:hover {
+            background-color: #282828;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #f44336;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: rgba(18, 18, 18, 0.9);
+            border-radius: 12px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: 40px;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 5px black;
+            margin-bottom: 20px;
+        }
+
+        #music-list {
+            width: 100%;
+        }
+
+        #music-list div {
+            padding: 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #444;
+        }
+
+        #music-list div:hover {
+            background-color: #333;
+        }
+
+        audio#audio-player {
+            margin-top: 15px;
+            width: 100%;
+            border-radius: 8px;
+            background-color: #222;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        /* Formulário (da segunda página) */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 300px;
+            margin-top: 30px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            padding: 13px;
+            border: none;
+            border-radius: 100px;
+            background-color: rgba(0, 0, 0, 0.85);
+            font-size: 16px;
+            outline: none;
+            box-shadow: 0 2px 5px rgb(255, 255, 255);
+            font-family: 'Abril Fatface', cursive;
+            color: white;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            box-shadow: 0 0 8px rgb(255, 255, 255);
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: #000;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Abril Fatface', cursive;
+            height: 6vh;
+        }
+
+        button:hover {
+            background-color: #222;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <img src="{% static 'imagens/icon-removebg-preview.png' %}" alt="Logo U'Sound" class="icon spotify-icon">
+        <a href="{% url 'index' %}" class="home-icon" title="Início"><i class="fas fa-house"></i></a>
+        <div class="search-container">
+            <i class="fas fa-magnifying-glass search-icon"></i>
+            <input type="text" class="search-bar" placeholder="O que você quer ouvir?">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                Biblioteca
+                <button class="add-button" title="Criar Playlist">+</button>
+            </div>
+            <div class="tabs">
+                <div class="tab active" data-tab="Todas">Todas</div>
+                <div class="tab" data-tab="Ryan">Ryan</div>
+                <div class="tab" data-tab="Mateus">Mateus</div>
+            </div>
+            <div id="playlistContainer"></div>
+        </div>
+
+        <main>
+            <h2>Suas Playlists</h2>
+            <div id="music-list">
+                <p>Selecione uma playlist para ver as músicas.</p>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        © 2025 U'SOUND. Todos os direitos reservados.
+    </footer>
+
+    <!-- Player escondido -->
+    <audio id="audio-player" style="display: none;" controls></audio>
+
+    <script>
+    let playlistsData = {
+        "Ryan": [
+            { titulo: "Oceano - Djavan", arquivo: "{% static 'musicas/OCEANO_-_Djavan.mp3' %}" },
+            { titulo: "Um amor puro - Djavan", arquivo: "{% static 'musicas/Um_amor_puro_-_Djavan.mp3' %}" },
+            { titulo: "Samurai - Djavan", arquivo: "{% static 'musicas/Djavan_-_Samurai_Ao_Vivo.mp3' %}" },
+            { titulo: "Será que é amor - Arlindo Cruz", arquivo: "{% static 'musicas/Arlindo_Cruz_-_Será_que_é_Amor.mp3' %}" },
+            { titulo: "Melhor que ontem - Djonga", arquivo: "{% static 'musicas/06_DJONGA_MELHOR_QUE_ONTEMMP3_160Kmp3.mp3' %}" },
+            { titulo: "Amor hospitalar - Roberto Carlos", arquivo: "{% static 'musicas/Amor_hospitalar.mp3' %}" },
+        ],
+        "Mateus": [
+            { titulo: "O Sol - Vitor Kley", arquivo: "{% static 'musicas/O_Sol.mp3' %}" },
+            { titulo: "Dois Corações - Melim", arquivo: "{% static 'musicas/Melim_-_Dois_Coracoes.mp3' %}" },
+            { titulo: "Meu Abrigo - Melim", arquivo: "{% static 'musicas/Meu_Abrigo_Versao_Oficial.mp3' %}" },
+            { titulo: "Raridade - Anderson Freire", arquivo: "{% static 'musicas/Raridade.mp3' %}" },
+            { titulo: "Medo - Ninja Raps", arquivo: "{% static 'musicas/medoviloes.mp3' %}" },
+            { titulo: "Créu - Ninja Raps", arquivo: "{% static 'musicas/Creu_Lucifer.mp3' %}" },
+        ]
+    };
+
+    const playlistContainer = document.getElementById('playlistContainer');
+    const musicList = document.getElementById('music-list');
+    const audioPlayer = document.getElementById('audio-player');
+    const addButton = document.querySelector('.add-button');
+
+    function getTodasMusicas() {
+        let todas = [];
+        for (let nome in playlistsData) {
+            playlistsData[nome].forEach(m => {
+                if (!todas.some(tm => tm.titulo === m.titulo && tm.arquivo === m.arquivo)) {
+                    todas.push(m);
+                }
+            });
+        }
+        return todas;
+    }
+
+    function mostrarAdicionarMusica() {
+        const todasMusicas = getTodasMusicas();
+        const musicasHTML = todasMusicas.map((m, i) => `${i + 1}. ${m.titulo}`).join("\n");
+
+        const index = prompt(`Escolha a música para adicionar:\n\n${musicasHTML}`);
+        const escolha = parseInt(index) - 1;
+        if (isNaN(escolha) || escolha < 0 || escolha >= todasMusicas.length) return;
+
+        const playlists = Object.keys(playlistsData);
+        const nomePlaylist = prompt(`Escolha a playlist:\n\n${playlists.join("\n")}`);
+        if (!playlistsData[nomePlaylist]) {
+            alert("Playlist não encontrada!");
+            return;
+        }
+
+        // Adicionar música à playlist (evita duplicadas)
+        const musica = todasMusicas[escolha];
+        const jaExiste = playlistsData[nomePlaylist].some(m => m.titulo === musica.titulo);
+        if (jaExiste) {
+            alert("Essa música já está nessa playlist!");
+        } else {
+            playlistsData[nomePlaylist].push(musica);
+            alert("Música adicionada!");
+        }
+    }
+
+    function renderPlaylists() {
+        playlistContainer.innerHTML = '';
+        Object.keys(playlistsData).forEach(nome => {
+            const div = document.createElement('div');
+            div.classList.add('playlist');
+            div.textContent = nome;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.classList.add('delete-btn');
+            deleteBtn.textContent = '×';
+            deleteBtn.title = "Deletar Playlist";
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (confirm(`Deseja deletar a playlist "${nome}"?`)) {
+                    delete playlistsData[nome];
+                    renderPlaylists();
+                    musicList.innerHTML = '<p>Selecione uma playlist para ver as músicas.</p>';
+                    audioPlayer.src = "";
+                }
+            });
+
+            div.appendChild(deleteBtn);
+            div.addEventListener('click', () => carregarMusicas(nome));
+            playlistContainer.appendChild(div);
+        });
+
+        // Adiciona botão de adicionar músicas
+        const addMusicBtn = document.createElement('button');
+        addMusicBtn.textContent = "Adicionar Música";
+        addMusicBtn.style.marginTop = "20px";
+        addMusicBtn.style.padding = "10px";
+        addMusicBtn.style.backgroundColor = "#1DB954";
+        addMusicBtn.style.color = "white";
+        addMusicBtn.style.border = "none";
+        addMusicBtn.style.borderRadius = "10px";
+        addMusicBtn.style.cursor = "pointer";
+        addMusicBtn.onclick = mostrarAdicionarMusica;
+
+        playlistContainer.appendChild(addMusicBtn);
+    }
+
+    function carregarMusicas(nomePlaylist) {
+        const musicas = playlistsData[nomePlaylist];
+        musicList.innerHTML = `<h3>${nomePlaylist}</h3>`;
+        if (!musicas || musicas.length === 0) {
+            musicList.innerHTML += '<p>Nenhuma música nessa playlist.</p>';
+            audioPlayer.src = "";
+            return;
+        }
+        musicas.forEach(musica => {
+            const div = document.createElement('div');
+            div.textContent = musica.titulo;
+            div.addEventListener('click', () => {
+                audioPlayer.src = musica.arquivo;
+                audioPlayer.play();
+            });
+            musicList.appendChild(div);
+        });
+        audioPlayer.src = "";
+    }
+
+    addButton.addEventListener('click', () => {
+        const nome = prompt("Digite o nome da nova playlist:");
+        if (nome) {
+            if (playlistsData[nome]) {
+                alert("Já existe uma playlist com esse nome!");
+                return;
+            }
+            playlistsData[nome] = [];
+            renderPlaylists();
+        }
+    });
+
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove destaque da aba anterior
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const nomeTab = tab.getAttribute('data-tab');
+            if (nomeTab === "Todas") {
+                musicList.innerHTML = '<p>Selecione uma playlist para ver as músicas.</p>';
+                audioPlayer.src = "";
+            } else {
+                carregarMusicas(nomeTab);
+            }
+        });
+    });
+
+    // Busca de músicas
+    document.querySelector('.search-bar').addEventListener('input', (e) => {
+        const termo = e.target.value.toLowerCase();
+        const todas = getTodasMusicas().filter(musica => musica.titulo.toLowerCase().includes(termo));
+
+        musicList.innerHTML = `<h3>Resultado da Busca</h3>`;
+        if (todas.length === 0) {
+            musicList.innerHTML += "<p>Nenhuma música encontrada.</p>";
+            return;
+        }
+
+        todas.forEach(musica => {
+            const div = document.createElement('div');
+            div.textContent = musica.titulo;
+            div.addEventListener('click', () => {
+                audioPlayer.src = musica.arquivo;
+                audioPlayer.play();
+            });
+            musicList.appendChild(div);
+        });
+    });
+
+    renderPlaylists();
+</script>
+</body>
+</html>

@@ -7,6 +7,21 @@ from django.contrib.auth import authenticate
 from .models import Produto
 from .serializers import ProdutoSerializer, UserSerializer
 
+def index(request):
+    return render(request, 'index.html')
+
+def login_view(request):
+    return render(request, 'login.html')
+
+def pagina_login(request):
+    return render(request, 'login.html')
+
+def cadastro(request):
+    return render(request, 'cadastro.html')
+
+def produtos(request):
+    return render(request, 'produtos.html')
+
 class ProdutoViewSet(viewsets.ModelViewSet):
     queryset = Produto.objects.all()
     serializer_class = ProdutoSerializer
