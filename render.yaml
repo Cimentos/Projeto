@@ -3,7 +3,7 @@ services:
     name: usound-django
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn projeto.wsgi:application
+    startCommand: gunicorn meu_projeto.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: meu_projeto.settings
