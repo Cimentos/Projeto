@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: usound-django
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn projeto.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: meu_projeto.settings
+      - key: PYTHON_VERSION
+        value: 3.11
